@@ -1,0 +1,13 @@
+matplotlib>=1.5
+numpy>=1.11
+pandas>=0.18
+scipy>=0.18
+Cython>=0.25
+ipython>=5.1
+joblib>=0.10
+memory_profiler>=0.41
+munkres>=1.0
+numexpr>=2.6
+psutil>=5.0
+scikit_learn>=0.18
+sphinx_gallery>=0.1

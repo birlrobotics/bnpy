@@ -1,0 +1,13 @@
+Metadata-Version: 1.1
+Name: bnpy
+Version: 0.1.5
+Summary: Bayesian nonparametric machine learning for Python
+Home-page: https://github.com/bnpy/bnpy
+Author: Michael C. Hughes
+Author-email: mike@michaelchughes.com
+License: BSD
+Description: UNKNOWN
+Keywords: Dirichlet process,mixture model,topic model,hidden Markov model
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: BSD License
