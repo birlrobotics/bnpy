@@ -1,11 +1,8 @@
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-# Project Title
+# Online Robot Introspection for Decision Making in Anomaly Recovery
 
-One Paragraph of project description goes here
+The topic of this project spans the areas of robot introspection, decision making, and anomaly recovery in robot manipulation tasks
 
-One to two paragraph statement about your product and what it does.
+Our experimental platform is based on the BAXTER dual-arms robot.
 ![](online_detection_screenshout.png) 
 
 
@@ -14,8 +11,8 @@ One to two paragraph statement about your product and what it does.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-
-What things you need to install the software and how to install them
+1. This proposed method is based on the open source bayesian nonparametric variational infereence library by Mike(http://www.michaelchughes.com). So please correctly download and install it. 
+2. Basic requirements: 
 
 ```
 Give examples
@@ -59,16 +56,6 @@ Explain what these tests test and why
 Give an example
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
@@ -79,7 +66,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **HongminWu** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
