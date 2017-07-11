@@ -1,4 +1,4 @@
-# @Hongmin Wu : This folder is used for the online anomaly detection in baxter-pick-n-place task
+@Hongmin Wu : This folder is used for the online anomaly detection in baxter-pick-n-place task
 # for training the models and threshold
 step-by-step tutorial
 1. training_config.py: for setting the customize path for training data
