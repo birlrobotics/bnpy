@@ -10,7 +10,7 @@ from bnpy.util import numpyToSharedMemArray, fillSharedMemArray
 
 from AbstractObsModel import AbstractObsModel
 from GaussObsModel import createECovMatFromUserInput
-
+import ipdb
 
 class AutoRegGaussObsModel(AbstractObsModel):
 
@@ -785,8 +785,8 @@ class AutoRegGaussObsModel(AbstractObsModel):
         logp = np.zeros(SS.K)
         for k in xrange(SS.K):
             nu, B, m, kappa = self.calcPostParamsForComp(SS, k)
-            logp[k] = c_Diff(Prior.nu, Prior.B, Prior.m, Prior.kappa,
-                             nu, B, m, kappa)
+            Prior.kappa = self.GetCached('logdetV') # @Hongmin Wu
+            logp[k] = c_Diff(Prior.nu, Prior.B, Prior.M, Prior.kappa, nu, B, m, kappa)
         return np.sum(logp) - 0.5 * np.sum(SS.N) * LOGTWOPI
 
     def calcPredProbVec_Unnorm(self, SS, x):
@@ -991,8 +991,7 @@ def c_Func(nu, logdetB, M, logdetV):
         + 0.5 * E * logdetV
 
 
-def c_Diff(nu, logdetB, M, logdetV,
-           nu2, logdetB2, M2, logdetV2):
+def c_Diff(nu, logdetB, M, logdetV, nu2, logdetB2, M2, logdetV2):
     return c_Func(nu, logdetB, M, logdetV) \
         - c_Func(nu2, logdetB2, M2, logdetV2)
 

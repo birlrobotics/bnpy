@@ -1,0 +1,2 @@
+convergethr 1e-05
+alpha 0.5

@@ -326,7 +326,7 @@ class DiagGaussObsModel(AbstractObsModel):
         m : 1D array, size D
         kappa : positive scalar
         '''
-        return calcPostParamsFromSSForComp(SS, kA, kB)
+        return calcPostParamsFromSSForComp(SS, kA, kB, self.Prior)
         '''
         if kB is None:
             SN = SS.N[kA]
@@ -1164,7 +1164,8 @@ def calcPostParamsFromSS(
 
 def calcPostParamsFromSSForComp(
         SS=None, 
-        kA=None, kB=None,
+        kA=None,
+        kB=None,
         Prior=None,
         **kwargs):
     ''' Calc updated posterior parameters for all clusters from suff stats

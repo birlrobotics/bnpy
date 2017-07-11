@@ -1,0 +1,41 @@
+WARNING: Found unrecognized keyword args. These are ignored.
+  --convergethr
+  --alpha
+Dataset Summary:
+GroupXData
+  total size: 5 units
+  batch size: 5 units
+  num. batches: 1
+Allocation Model:  None
+Obs. Data  Model:  Gaussian with diagonal covariance.
+Obs. Data  Prior:  independent Gauss-Wishart prior on each dimension
+  Wishart params 
+    nu = 15  ...
+  beta = [ 13  13]  ...
+  Expectations
+  E[  mean[k]] = 
+  [ 0  0] ...
+  E[ covar[k]] = 
+  [[ 1.  0.]
+   [ 0.  1.]] ...
+Initialization:
+  initname = randexamples
+  K = 25 (number of clusters)
+  seed = 1607680
+  elapsed_time: 0.0 sec
+Learn Alg: memoVB | task  1/1 | alg. seed: 1607680 | data order seed: 8541952
+task_output_path: /home/Homls/npBayesHMM/python/bnpy/results/1
+    1.000/1000 after      0 sec. |    147.1 MiB | K   25 | loss  6.465687543e-01 |  
+    2.000/1000 after      1 sec. |    147.2 MiB | K   25 | loss  4.082779091e-01 | Ndiff  245.118 
+    3.000/1000 after      1 sec. |    147.2 MiB | K   25 | loss -1.093472846e-01 | Ndiff  848.110 
+    4.000/1000 after      1 sec. |    147.2 MiB | K   25 | loss -4.157729772e-01 | Ndiff  695.744 
+    5.000/1000 after      1 sec. |    147.2 MiB | K   25 | loss -4.491779243e-01 | Ndiff   49.162 
+    6.000/1000 after      2 sec. |    147.2 MiB | K   25 | loss -4.509895099e-01 | Ndiff    7.105 
+    7.000/1000 after      2 sec. |    147.2 MiB | K   25 | loss -4.512678627e-01 | Ndiff    2.719 
+    8.000/1000 after      2 sec. |    147.2 MiB | K   25 | loss -4.513502109e-01 | Ndiff    0.491 
+    9.000/1000 after      2 sec. |    147.2 MiB | K   25 | loss -4.516631410e-01 | Ndiff    0.845 
+   10.000/1000 after      3 sec. |    147.2 MiB | K   25 | loss -4.548387076e-01 | Ndiff    4.116 
+   11.000/1000 after      3 sec. |    147.2 MiB | K   25 | loss -4.557748070e-01 | Ndiff    0.215 
+   12.000/1000 after      3 sec. |    147.2 MiB | K   25 | loss -4.558016253e-01 | Ndiff    0.041 
+   13.000/1000 after      3 sec. |    147.2 MiB | K   25 | loss -4.558226871e-01 | Ndiff    0.008 
+... done. converged.

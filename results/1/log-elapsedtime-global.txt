@@ -1,0 +1,14 @@
+0.000 cur 0.00 ttl 2.49 cur_alloc 0.00 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.12 ttl_ev 0.31 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+1.000 cur 0.05 ttl 2.54 cur_alloc 0.05 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.16 ttl_ev 0.32 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+2.000 cur 0.04 ttl 2.58 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.20 ttl_ev 0.32 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+3.000 cur 0.04 ttl 2.63 cur_alloc 0.04 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.23 ttl_ev 0.33 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+4.000 cur 0.04 ttl 2.67 cur_alloc 0.04 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.27 ttl_ev 0.33 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+5.000 cur 0.04 ttl 2.71 cur_alloc 0.04 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.31 ttl_ev 0.34 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+6.000 cur 0.04 ttl 2.75 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.34 ttl_ev 0.34 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+7.000 cur 0.03 ttl 2.78 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.37 ttl_ev 0.35 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+8.000 cur 0.03 ttl 2.81 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.39 ttl_ev 0.35 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+9.000 cur 0.03 ttl 2.85 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.42 ttl_ev 0.36 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+10.000 cur 0.03 ttl 2.88 cur_alloc 0.02 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.44 ttl_ev 0.36 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+11.000 cur 0.03 ttl 2.91 cur_alloc 0.02 cur_ev 0.01 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.47 ttl_ev 0.37 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+12.000 cur 0.03 ttl 2.94 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.50 ttl_ev 0.37 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
+13.000 cur 0.03 ttl 2.97 cur_alloc 0.03 cur_ev 0.00 cur_fastfwdSS 0.00 cur_increment 0.00 cur_obs 0.00 ttl_alloc 2.52 ttl_ev 0.38 ttl_fastfwdSS 0.00 ttl_increment 0.05 ttl_obs 0.01
