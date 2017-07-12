@@ -11,30 +11,25 @@ Our experimental platform is based on the BAXTER dual-arms robot.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-1. This proposed method is based on the open source bayesian nonparametric variational infereence library by Mike(http://www.michaelchughes.com). So please correctly download and install it. 
+1. This proposed method is based on the open source bayesian nonparametric variational infereence library by Mike(http://www.michaelchughes.com). 
 2. Basic requirements: 
 
 ```
 Give examples
 ```
 
-### Installing
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
+### Installation
+1. git clone this repo
+2. make sure the python can import this repo, we should define several environment variables in ~/.bashrc file
 ```
-Give the example
+   #for bnpy 
+   export BNPYROOT=~/your_local_path_to/bnpy/
+   export PYTHONPATH=${PYTHONPATH}:~/your_local_path_to/bnpy/
+   #for saving the results
+   export BNPYOUTDIR=~/your_local_path_to/bnpy/results/
+   #for the datasets
+   export BNPYDATADIR=~/your_local_path_to/bnpy/datasets
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
