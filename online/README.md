@@ -31,11 +31,10 @@ Give examples
    export BNPYDATADIR=~/your_local_path_to/bnpy/datasets
 ```
 you can test the correct configuration
-'''
->>ipython
->>import bnpy
-'''
-
+```
+>> ipython
+>> import bnpy
+```
 ## Running the tests
 
 Explain how to run the automated tests for this system
