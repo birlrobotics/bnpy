@@ -30,6 +30,11 @@ Give examples
    #for the datasets
    export BNPYDATADIR=~/your_local_path_to/bnpy/datasets
 ```
+you can test the correct configuration
+'''
+>>ipython
+>>import bnpy
+'''
 
 ## Running the tests
 
