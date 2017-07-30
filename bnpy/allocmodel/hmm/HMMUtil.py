@@ -52,6 +52,7 @@ def calcLocalParams(Data, LP,
     startPi = np.ones(K)
     logMargPr = np.empty(Data.nDoc)
     resp = np.empty((nAtom, K))
+    logLik_n = []
 
     # Unpack pairs to track for merging.
     if mPairIDs is None:
@@ -131,11 +132,11 @@ def calcLocalParams(Data, LP,
             respPair[start:stop] = respPair_n
             logMargPr[n] = lp_n
 
-        LP['evidence'] = np.sum(logMargPr)
+        LP['evidence']  = np.sum(logMargPr)
         LP['resp'] = resp
         LP['respPair'] = respPair
     # ... end if statement on limitMemoryLP
-
+    LP['logLik_n'] = logLik_n    # by HongminWu 28.07-2017
     return LP
 
 
