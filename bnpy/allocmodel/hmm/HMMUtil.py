@@ -562,7 +562,7 @@ def runViterbiAlg(logSoftEv, logPi0, logPi):
     z = np.zeros(T)
     z[-1] = np.argmax(ScoreTable[-1])
     for t in reversed(xrange(T - 1)):
-        z[t] = PtrTable[t + 1, z[t + 1]]
+        z[t] = PtrTable[int(t + 1), int(z[t + 1])]
     return z
 
 

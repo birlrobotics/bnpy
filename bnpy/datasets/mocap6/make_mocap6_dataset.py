@@ -2,7 +2,7 @@ import numpy as np
 import scipy.io
 import bnpy
 
-Q = scipy.io.loadmat('/Users/mhughes/git/mocap6dataset/mocap6.mat')
+Q = scipy.io.loadmat('/home/vmrguser/Files_from_Shuangqi_to_Workstation/birl/bnpy_from_Hongmin/bnpy/bnpy/datasets/mocap6/mocap6.mat')
 Q = Q['DataBySeq']
 
 X_list        = list()

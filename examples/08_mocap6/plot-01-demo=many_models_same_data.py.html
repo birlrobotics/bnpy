@@ -1,0 +1,178 @@
+<html><head>
+<title>plot-01-demo=many_models_same_data.py</title>
+<meta name="Generator" content="htmlizer/[twisted, version 13.2.0]" />
+<link rel="alternate" href="plot-01-demo=many_models_same_data.py" type="text/x-python" />
+
+</head>
+<body>
+<pre><span class="py-src-string">"""
+==============================================
+Comparing models for sequential data
+==============================================
+
+How to train mixtures and HMMs with various observation models on the same dataset.
+
+"""</span>
+<span class="py-src-keyword">import</span> <span class="py-src-variable">bnpy</span>
+<span class="py-src-keyword">import</span> <span class="py-src-variable">numpy</span> <span class="py-src-keyword">as</span> <span class="py-src-variable">np</span>
+<span class="py-src-keyword">import</span> <span class="py-src-variable">os</span>
+
+<span class="py-src-keyword">from</span> <span class="py-src-variable">matplotlib</span> <span class="py-src-keyword">import</span> <span class="py-src-variable">pylab</span>
+<span class="py-src-keyword">import</span> <span class="py-src-variable">seaborn</span> <span class="py-src-keyword">as</span> <span class="py-src-variable">sns</span>
+
+<span class="py-src-variable">SMALL_FIG_SIZE</span> = (<span class="py-src-number">2.5</span>, <span class="py-src-number">2.5</span>)
+<span class="py-src-variable">FIG_SIZE</span> = (<span class="py-src-number">5</span>, <span class="py-src-number">5</span>)
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">rcParams</span>[<span class="py-src-string">'figure.figsize'</span>] = <span class="py-src-variable">FIG_SIZE</span>
+<span class="py-src-variable">nLap</span>  = <span class="py-src-number">500</span>
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Load dataset from file</span>
+<span class="py-src-variable">dataset_path</span> = <span class="py-src-variable">os</span>.<span class="py-src-variable">path</span>.<span class="py-src-variable">join</span>(<span class="py-src-variable">bnpy</span>.<span class="py-src-variable">DATASET_PATH</span>, <span class="py-src-string">'mocap6'</span>)
+<span class="py-src-variable">dataset</span> = <span class="py-src-variable">bnpy</span>.<span class="py-src-variable">data</span>.<span class="py-src-variable">GroupXData</span>.<span class="py-src-variable">read_npz</span>(
+    <span class="py-src-variable">os</span>.<span class="py-src-variable">path</span>.<span class="py-src-variable">join</span>(<span class="py-src-variable">dataset_path</span>, <span class="py-src-string">'dataset.npz'</span>))
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Setup: Function to make a simple plot of the raw data</span>
+<span class="py-src-comment"># -----------------------------------------------------</span>
+
+<span class="py-src-keyword">def</span> <span class="py-src-identifier">show_single_sequence</span>(<span class="py-src-parameter">seq_id</span>):
+    <span class="py-src-variable">start</span> = <span class="py-src-variable">dataset</span>.<span class="py-src-variable">doc_range</span>[<span class="py-src-variable">seq_id</span>]
+    <span class="py-src-variable">stop</span> = <span class="py-src-variable">dataset</span>.<span class="py-src-variable">doc_range</span>[<span class="py-src-variable">seq_id</span> + <span class="py-src-number">1</span>]
+    <span class="py-src-keyword">for</span> <span class="py-src-variable">dim</span> <span class="py-src-keyword">in</span> <span class="py-src-variable">xrange</span>(<span class="py-src-number">12</span>):
+        <span class="py-src-variable">X_seq</span> = <span class="py-src-variable">dataset</span>.<span class="py-src-variable">X</span>[<span class="py-src-variable">start</span>:<span class="py-src-variable">stop</span>]
+        <span class="py-src-variable">pylab</span>.<span class="py-src-variable">plot</span>(<span class="py-src-variable">X_seq</span>[:, <span class="py-src-variable">dim</span>], <span class="py-src-string">'.-'</span>)
+    <span class="py-src-variable">pylab</span>.<span class="py-src-variable">xlabel</span>(<span class="py-src-string">'time'</span>)
+    <span class="py-src-variable">pylab</span>.<span class="py-src-variable">ylabel</span>(<span class="py-src-string">'angle'</span>)
+    <span class="py-src-variable">pylab</span>.<span class="py-src-variable">tight_layout</span>()
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Visualization of the first sequence</span>
+<span class="py-src-comment"># -----------------------------------</span>
+
+<span class="py-src-variable">show_single_sequence</span>(<span class="py-src-number">0</span>)
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Visualization of the second sequence</span>
+<span class="py-src-comment"># ------------------------------------</span>
+
+<span class="py-src-variable">show_single_sequence</span>(<span class="py-src-number">1</span>)
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Setup: hyperparameters</span>
+<span class="py-src-comment"># ----------------------------------------------------------</span>
+
+<span class="py-src-variable">alpha</span> = <span class="py-src-number">0.5</span>
+<span class="py-src-variable">gamma</span> = <span class="py-src-number">5.0</span>
+<span class="py-src-variable">sF</span> = <span class="py-src-number">1.0</span>
+<span class="py-src-variable">K</span> = <span class="py-src-number">20</span>
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># DP mixture with *DiagGauss* observation model</span>
+<span class="py-src-comment"># ---------------------------------------------</span>
+
+
+<span class="py-src-variable">mixdiag_trained_model</span>, <span class="py-src-variable">mixdiag_info_dict</span> = <span class="py-src-variable">bnpy</span>.<span class="py-src-variable">run</span>(
+    <span class="py-src-variable">dataset</span>, <span class="py-src-string">'DPMixtureModel'</span>, <span class="py-src-string">'DiagGauss'</span>, <span class="py-src-string">'memoVB'</span>,
+    <span class="py-src-variable">output_path</span>=<span class="py-src-string">'/tmp/mocap6/showcase-K=20-model=DP+DiagGauss-ECovMat=1*eye/'</span>,
+    <span class="py-src-variable">nLap</span>=<span class="py-src-variable">nLap</span>, <span class="py-src-variable">nTask</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">nBatch</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">convergeThr</span>=<span class="py-src-number">0.0001</span>,
+    <span class="py-src-variable">alpha</span>=<span class="py-src-variable">alpha</span>, <span class="py-src-variable">gamma</span>=<span class="py-src-variable">gamma</span>, <span class="py-src-variable">sF</span>=<span class="py-src-variable">sF</span>, <span class="py-src-variable">ECovMat</span>=<span class="py-src-string">'eye'</span>,
+    <span class="py-src-variable">K</span>=<span class="py-src-variable">K</span>, <span class="py-src-variable">initname</span>=<span class="py-src-string">'randexamples'</span>,
+    )
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># HDP-HMM with *DiagGauss* observation model</span>
+<span class="py-src-comment"># -------------------------------------------</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Assume diagonal covariances.</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Start with too many clusters (K=20)</span>
+
+
+<span class="py-src-variable">hmmdiag_trained_model</span>, <span class="py-src-variable">hmmdiag_info_dict</span> = <span class="py-src-variable">bnpy</span>.<span class="py-src-variable">run</span>(
+    <span class="py-src-variable">dataset</span>, <span class="py-src-string">'HDPHMM'</span>, <span class="py-src-string">'DiagGauss'</span>, <span class="py-src-string">'memoVB'</span>,
+    <span class="py-src-variable">output_path</span>=<span class="py-src-string">'/tmp/mocap6/showcase-K=20-model=HDPHMM+DiagGauss-ECovMat=1*eye/'</span>,
+    <span class="py-src-variable">nLap</span>=<span class="py-src-variable">nLap</span>, <span class="py-src-variable">nTask</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">nBatch</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">convergeThr</span>=<span class="py-src-number">0.0001</span>,
+    <span class="py-src-variable">alpha</span>=<span class="py-src-variable">alpha</span>, <span class="py-src-variable">gamma</span>=<span class="py-src-variable">gamma</span>, <span class="py-src-variable">sF</span>=<span class="py-src-variable">sF</span>, <span class="py-src-variable">ECovMat</span>=<span class="py-src-string">'eye'</span>,
+    <span class="py-src-variable">K</span>=<span class="py-src-variable">K</span>, <span class="py-src-variable">initname</span>=<span class="py-src-string">'randexamples'</span>,
+    )
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># HDP-HMM with *Gauss* observation model</span>
+<span class="py-src-comment"># --------------------------------------</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Assume full covariances.</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Start with too many clusters (K=20)</span>
+
+
+<span class="py-src-variable">hmmfull_trained_model</span>, <span class="py-src-variable">hmmfull_info_dict</span> = <span class="py-src-variable">bnpy</span>.<span class="py-src-variable">run</span>(
+    <span class="py-src-variable">dataset</span>, <span class="py-src-string">'HDPHMM'</span>, <span class="py-src-string">'Gauss'</span>, <span class="py-src-string">'memoVB'</span>,
+    <span class="py-src-variable">output_path</span>=<span class="py-src-string">'/tmp/mocap6/showcase-K=20-model=HDPHMM+Gauss-ECovMat=1*eye/'</span>,
+    <span class="py-src-variable">nLap</span>=<span class="py-src-variable">nLap</span>, <span class="py-src-variable">nTask</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">nBatch</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">convergeThr</span>=<span class="py-src-number">0.0001</span>,
+    <span class="py-src-variable">alpha</span>=<span class="py-src-variable">alpha</span>, <span class="py-src-variable">gamma</span>=<span class="py-src-variable">gamma</span>, <span class="py-src-variable">sF</span>=<span class="py-src-variable">sF</span>, <span class="py-src-variable">ECovMat</span>=<span class="py-src-string">'eye'</span>,
+    <span class="py-src-variable">K</span>=<span class="py-src-variable">K</span>, <span class="py-src-variable">initname</span>=<span class="py-src-string">'randexamples'</span>,
+    )
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># HDP-HMM with *AutoRegGauss* observation model</span>
+<span class="py-src-comment"># ----------------------------------------------</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Assume full covariances.</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-comment"># Start with too many clusters (K=20)</span>
+
+
+<span class="py-src-variable">hmmar_trained_model</span>, <span class="py-src-variable">hmmar_info_dict</span> = <span class="py-src-variable">bnpy</span>.<span class="py-src-variable">run</span>(
+    <span class="py-src-variable">dataset</span>, <span class="py-src-string">'HDPHMM'</span>, <span class="py-src-string">'AutoRegGauss'</span>, <span class="py-src-string">'memoVB'</span>,
+    <span class="py-src-variable">output_path</span>=<span class="py-src-string">'/tmp/mocap6/showcase-K=20-model=HDPHMM+AutoRegGauss-ECovMat=1*eye/'</span>,
+    <span class="py-src-variable">nLap</span>=<span class="py-src-variable">nLap</span>, <span class="py-src-variable">nTask</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">nBatch</span>=<span class="py-src-number">1</span>, <span class="py-src-variable">convergeThr</span>=<span class="py-src-number">0.0001</span>,
+    <span class="py-src-variable">alpha</span>=<span class="py-src-variable">alpha</span>, <span class="py-src-variable">gamma</span>=<span class="py-src-variable">gamma</span>, <span class="py-src-variable">sF</span>=<span class="py-src-variable">sF</span>, <span class="py-src-variable">ECovMat</span>=<span class="py-src-string">'eye'</span>,
+    <span class="py-src-variable">K</span>=<span class="py-src-variable">K</span>, <span class="py-src-variable">initname</span>=<span class="py-src-string">'randexamples'</span>,
+    )
+
+
+<span class="py-src-comment">###############################################################################</span>
+<span class="py-src-comment"># </span>
+<span class="py-src-comment"># Compare loss function traces for all methods</span>
+<span class="py-src-comment"># --------------------------------------------</span>
+<span class="py-src-comment">#</span>
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">figure</span>()
+
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">plot</span>(
+    <span class="py-src-variable">mixdiag_info_dict</span>[<span class="py-src-string">'lap_history'</span>],
+    <span class="py-src-variable">mixdiag_info_dict</span>[<span class="py-src-string">'loss_history'</span>], <span class="py-src-string">'b.-'</span>,
+    <span class="py-src-variable">label</span>=<span class="py-src-string">'mix + diag gauss'</span>)
+
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">plot</span>(
+    <span class="py-src-variable">hmmdiag_info_dict</span>[<span class="py-src-string">'lap_history'</span>],
+    <span class="py-src-variable">hmmdiag_info_dict</span>[<span class="py-src-string">'loss_history'</span>], <span class="py-src-string">'k.-'</span>,
+    <span class="py-src-variable">label</span>=<span class="py-src-string">'hmm + diag gauss'</span>)
+
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">plot</span>(
+    <span class="py-src-variable">hmmfull_info_dict</span>[<span class="py-src-string">'lap_history'</span>],
+    <span class="py-src-variable">hmmfull_info_dict</span>[<span class="py-src-string">'loss_history'</span>], <span class="py-src-string">'r.-'</span>,
+    <span class="py-src-variable">label</span>=<span class="py-src-string">'hmm + full gauss'</span>)
+
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">plot</span>(
+    <span class="py-src-variable">hmmar_info_dict</span>[<span class="py-src-string">'lap_history'</span>],
+    <span class="py-src-variable">hmmar_info_dict</span>[<span class="py-src-string">'loss_history'</span>], <span class="py-src-string">'c.-'</span>,
+    <span class="py-src-variable">label</span>=<span class="py-src-string">'hmm + ar gauss'</span>)
+
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">legend</span>(<span class="py-src-variable">loc</span>=<span class="py-src-string">'upper right'</span>)
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">xlabel</span>(<span class="py-src-string">'num. laps'</span>)
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">ylabel</span>(<span class="py-src-string">'loss'</span>)
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">xlim</span>([<span class="py-src-number">4</span>, <span class="py-src-number">100</span>]) <span class="py-src-comment"># avoid early iterations</span>
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">ylim</span>([<span class="py-src-number">2.4</span>, <span class="py-src-number">3.7</span>]) <span class="py-src-comment"># handpicked</span>
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">draw</span>()
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">tight_layout</span>()
+<span class="py-src-variable">pylab</span>.<span class="py-src-variable">show</span>()
+</pre>
+</body>

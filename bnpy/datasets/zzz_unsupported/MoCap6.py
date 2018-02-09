@@ -24,7 +24,7 @@ if not os.path.isfile(matfilepath):
 
 
 def get_data(**kwargs):
-    Data = GroupXData.read_from_mat(matfilepath)
+    Data = GroupXData.read_mat(matfilepath)
     Data.summary = get_data_info()
     Data.name = get_short_name()
     # Verify that true state space is indexed starting at 0, not 1

@@ -12,6 +12,7 @@ import os
 
 from matplotlib import pylab
 import seaborn as sns
+import ipdb
 
 SMALL_FIG_SIZE = (2.5, 2.5)
 FIG_SIZE = (5, 5)
@@ -68,6 +69,7 @@ K = 20
 # DP mixture with *DiagGauss* observation model
 # ---------------------------------------------
 
+ipdb.set_trace()
 
 mixdiag_trained_model, mixdiag_info_dict = bnpy.run(
     dataset, 'DPMixtureModel', 'DiagGauss', 'memoVB',

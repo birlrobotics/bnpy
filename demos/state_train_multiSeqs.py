@@ -21,7 +21,7 @@ FIG_SIZE = (5, 5)
 pylab.rcParams['figure.figsize'] = FIG_SIZE
 pylab.close('all')
 
-dataPath     = '/home/birl/npBayesHMM/HIRO_SA_DATA/REAL_HIRO_ONE_SA_SUCCESS'
+dataPath     = '/media/vmrguser/DATA/Homlx/DATA_HIRO_SA/REAL_HIRO_ONE_SA_SUCCESS'
 file_id      = ['02', '03', '04', '05', '06','07', '08', '09', '10', '11', '12', '13', '14', '15', '16']
 nLap         = 500
 time_step    = 0.005

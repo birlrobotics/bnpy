@@ -31,6 +31,8 @@ import imp
 import sys
 import argparse
 
+import ipdb
+
 from matplotlib import pylab
 
 from bnpy.util.StateSeqUtil import convertStateSeq_MAT2list
